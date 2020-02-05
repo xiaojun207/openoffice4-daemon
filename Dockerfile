@@ -25,6 +25,8 @@ LABEL name="xiaojun207/openoffice4-daemon" \
 ### Setup user for build execution and application runtime
 COPY pkgs/ /tmp/
 
+RUN yum install -y java-1.8.0-openjdk.x86_64
+
 #RUN tar -zxf /tmp/*.tar.gz -C /tmp && \
 RUN (curl -0 $OO_TGZ_URL | tar -zx -C /tmp) && \
     yum localinstall -y /tmp/*/RPMS/*.rpm && \
