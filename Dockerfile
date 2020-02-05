@@ -27,6 +27,9 @@ COPY pkgs/ /tmp/
 
 RUN yum install -y java-1.8.0-openjdk.x86_64
 
+### support chinese
+RUN yum -y groupinstall chinese-support 
+
 #RUN tar -zxf /tmp/*.tar.gz -C /tmp && \
 RUN (curl -0 $OO_TGZ_URL | tar -zx -C /tmp) && \
     yum localinstall -y /tmp/*/RPMS/*.rpm && \
