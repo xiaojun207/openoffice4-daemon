@@ -1,21 +1,21 @@
 FROM centos:7
 
 ## Build Env vars
-ARG OO_VERSION=3.2.0
-ARG OO_TGZ_URL="http://ftp5.gwdg.de/pub/openoffice/archive/stable/${OO_VERSION}/OOo_${OO_VERSION}_Linux_x86-64_install-rpm-wJRE_en-US.tar.gz"
+ARG OO_VERSION=4.1.7
+ARG OO_TGZ_URL="https://jaist.dl.sourceforge.net/project/openofficeorg.mirror/4.1.7/binaries/zh-CN/Apache_OpenOffice_${OO_VERSION}_Linux_x86-64_install-rpm_zh-CN.tar.gz"
 
 ENV SOFFICE_DAEMON_PORT=8100
 ENV APP_ROOT=/opt/app-root
 ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
 
 ### Atomic/OpenShift Labels - https://github.com/projectatomic/ContainerApplicationGenericLabels
-LABEL name="rafaeltuelho/openoffice3-daemon" \
-      maintainer="Rafael T. C. Soares <rafaelcba@gmail.com>" \
+LABEL name="xiaojun207/openoffice4-daemon" \
+      maintainer="xiaojun207 <xiaojun207@126.com>" \
       version="1.0" \
       release="1" \
-      summary="Openoffice 3 headless mode (soffice)" \
+      summary="Openoffice 4 headless mode (soffice)" \
       description="Start the Openoffice headless daemon listening on ${SOFFICE_DAEMON_PORT}" \
-      url="https://github.com/rafaeltuelho/openoffice3-daemon" \
+      url="https://github.com/xiaojun207/openoffice4-daemon" \
       run='docker run -tdi --name ${NAME} -u 123456 ${IMAGE}' \
       io.k8s.description="Start the Openoffice headless daemon listening on ${SOFFICE_DAEMON_PORT}" \
       io.k8s.display-name="Openoffice headless daemon" \
@@ -25,12 +25,12 @@ LABEL name="rafaeltuelho/openoffice3-daemon" \
 ### Setup user for build execution and application runtime
 COPY pkgs/ /tmp/
 
-#RUN tar -zxf /tmp/OO*.tar.gz -C /tmp && \
+#RUN tar -zxf /tmp/*.tar.gz -C /tmp && \
 RUN (curl -0 $OO_TGZ_URL | tar -zx -C /tmp) && \
-    yum localinstall -y /tmp/OOO*/RPMS/*.rpm && \
+    yum localinstall -y /tmp/*/RPMS/*.rpm && \
     yum install -y git make && \
     yum clean all -y && \
-    rm -rf /tmp/*.tar.gz /tmp/OOO*
+    rm -rf /tmp/*.tar.gz /tmp/*
 
 ### Install unoconv utility
 RUN git clone https://github.com/dagwieers/unoconv && \
