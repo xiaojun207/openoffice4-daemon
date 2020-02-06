@@ -2,7 +2,7 @@ FROM centos:7
 
 ## Build Env vars
 ARG OO_VERSION=4.1.7
-ARG OO_TGZ_URL="https://jaist.dl.sourceforge.net/project/openofficeorg.mirror/4.1.7/binaries/zh-CN/Apache_OpenOffice_${OO_VERSION}_Linux_x86-64_install-rpm_zh-CN.tar.gz"
+ARG OO_TGZ_URL="https://jaist.dl.sourceforge.net/project/openofficeorg.mirror/${OO_VERSION}/binaries/zh-CN/Apache_OpenOffice_${OO_VERSION}_Linux_x86-64_install-rpm_zh-CN.tar.gz"
 
 ENV SOFFICE_DAEMON_PORT=8100
 ENV APP_ROOT=/opt/app-root
