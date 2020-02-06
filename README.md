@@ -1,5 +1,5 @@
 # Openoffice 4 headless daemon
-Image running the OpenOffice 4 soffice daemon service
+Image running the OpenOffice 4 soffice daemon service, and solve the problem of Chinese code scrambling.(包括中文乱码问题)
 
 This image was created following the https://github.com/rafaeltuelho/openoffice3-daemon. And thanks he
 
