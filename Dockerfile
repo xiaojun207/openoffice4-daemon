@@ -31,7 +31,7 @@ COPY fonts/ /usr/share/fonts/
 
 RUN yum -y groupinstall chinese-support
 
-cd /usr/share/fonts/ && \
+RUN cd /usr/share/fonts/ && \
 chmod -R 755 /usr/share/fonts && \
 mkfontscale && \
 mkfontdir && \
