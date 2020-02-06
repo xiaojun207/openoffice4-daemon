@@ -12,10 +12,40 @@ This image was created following the https://github.com/rafaeltuelho/openoffice3
 ## Run the container
 
 ```
-docker run -it -u 123456 --name=soffice -p 8100:8100 xiaojun207/openoffice4-daemon
+docker run -d -u 123456 --name soffice -p 8100:8100 -v /data/:/data/ xiaojun207/openoffice4-daemon:latest
 ```
 
 When you run this image the container will start the Openoffice daemon in headless mode listening on TCP port `8100` by default. To change this port pass the env var `SOFFICE_DAEMON_PORT`
+
+>If you use java, you can use jodconverter connect the container, like this:
+
+```
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import lombok.extern.slf4j.Slf4j;
+import org.artofsolving.jodconverter.OfficeDocumentConverter;
+import org.artofsolving.jodconverter.office.DefaultOfficeManagerConfiguration;
+import org.artofsolving.jodconverter.office.OfficeManager;
+
+...
+
+	public static void main(String[] args){
+    DefaultOfficeManagerConfiguration configuration = new DefaultOfficeManagerConfiguration();
+    configuration.setOfficeHome("/opt/openoffice4");
+    configuration.setPortNumbers(8100);
+    configuration.setTaskExecutionTimeout(1000 * 60 * 5L);// 设置任务执行超时为5分钟
+    configuration.setTaskQueueTimeout(1000 * 60 * 60 * 24L);// 设置任务队列超时为24小时
+    OfficeManager officeManager = configuration.buildOfficeManager();
+    String inputFile = "/data/a.docx";
+    String pdfFile = "/data/a.pdf"; // 注意输出目录的docker写入权限，否则可能会失败
+    System.out.println("进行文档转换转换:" + inputFile + " --> " + pdfFile + ",isRunning:" + officeManager.isRunning());
+    OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager);
+    converter.convert(new File(inputFile), new File(pdfFile));
+	}
+
+```
+* Note the write permission of the output directory, otherwise it may fail.
 
 ## Verify the daemon port is listening for connections
 
