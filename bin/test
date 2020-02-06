@@ -6,4 +6,4 @@ echo -e "\t $TCP_PORT_STATUS"
 
 echo -e "\nyou can test a file conversion using the unoconv utility connecting to soffice running in this container."
 echo -e "\t put some .odt files into a dir on your host and them run the container attaching a volume:"
-echo -e "\n\t docker run -v ~/pdfs:/pdfs:rw rafaeltuelho/openoffice3-daemon unoconv --connection 'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' -f pdf /pdfs/test.odt"
+echo -e "\n\t docker run -v ~/pdfs:/pdfs:rw xiaojun207/openoffice4-daemon unoconv --connection 'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' -f pdf /pdfs/test.odt"
