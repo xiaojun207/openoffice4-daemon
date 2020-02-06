@@ -25,10 +25,20 @@ LABEL name="xiaojun207/openoffice4-daemon" \
 ### Setup user for build execution and application runtime
 COPY pkgs/ /tmp/
 
-RUN yum install -y java-1.8.0-openjdk.x86_64
 
 ### support chinese
-RUN yum -y groupinstall chinese-support 
+COPY fonts/ /usr/share/fonts/
+
+RUN yum -y groupinstall chinese-support
+
+cd /usr/share/fonts/ && \
+chmod -R 755 /usr/share/fonts && \
+mkfontscale && \
+mkfontdir && \
+fc-cache -fv
+
+RUN yum install -y java-1.8.0-openjdk.x86_64
+ 
 
 #RUN tar -zxf /tmp/*.tar.gz -C /tmp && \
 RUN (curl -0 $OO_TGZ_URL | tar -zx -C /tmp) && \
