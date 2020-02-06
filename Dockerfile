@@ -29,7 +29,7 @@ COPY pkgs/ /tmp/
 ### support chinese
 COPY fonts/ /usr/share/fonts/
 
-RUN yum -y groupinstall chinese-support
+## RUN yum -y groupinstall chinese-support
 
 RUN cd /usr/share/fonts/ && \
 chmod -R 755 /usr/share/fonts && \
