@@ -66,7 +66,7 @@ docker run \
  -v ~/pdfs:/pdfs:rw \
  xiaojun207/openoffice4-daemon \
  unoconv --connection 'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
- -f pdf /pdfs/somefile.odt"
+ -f pdf /pdfs/somefile.doc
 ```
 
  * now you should see the file converted to `.pdf` inside the dir mounted as Volume
